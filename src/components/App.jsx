@@ -11,6 +11,7 @@ export default function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
 
   function HandleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -26,13 +27,17 @@ export default function App() {
 
   function HandleCardClick(card) {
     setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function CloseAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setIsImagePopupOpen(false);
+    setTimeout(function () {
+      setSelectedCard(false);
+    }, 300);
   }
 
   return (
@@ -47,7 +52,11 @@ export default function App() {
       />
       <Footer />
 
-      <ImagePopup card={selectedCard} onClose={CloseAllPopups}></ImagePopup>
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={CloseAllPopups}
+      ></ImagePopup>
 
       <PopupWithForm
         name="edit"

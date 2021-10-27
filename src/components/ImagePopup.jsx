@@ -2,7 +2,7 @@ import addPath from "../images/add-icon.svg";
 
 export default function ImagePopup(props) {
   return (
-    <div className={`popup image-popup ${props.card ? "popup_opened" : ""}`}>
+    <div className={`popup image-popup ${props.isOpen ? "popup_opened" : ""}`}>
       <div className="image-popup__container">
         <button className="popup__close" onClick={props.onClose}>
           <img className="popup__close-icon" src={addPath} alt="close icon" />
