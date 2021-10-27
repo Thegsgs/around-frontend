@@ -10,33 +10,33 @@ export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
 
-  function HandleEditProfileClick() {
+  function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
 
-  function HandleAddPlaceClick() {
+  function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function HandleEditAvatarClick() {
+  function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function HandleCardClick(card) {
+  function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
   }
 
-  function CloseAllPopups() {
+  function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
     setTimeout(function () {
-      setSelectedCard(false);
+      setSelectedCard({});
     }, 300);
   }
 
@@ -45,24 +45,25 @@ export default function App() {
       <Header />
 
       <Main
-        onEditProfileClick={HandleEditProfileClick}
-        onAddPlaceClick={HandleAddPlaceClick}
-        onEditAvatarClick={HandleEditAvatarClick}
-        onCardClick={HandleCardClick}
+        onEditProfileClick={handleEditProfileClick}
+        onAddPlaceClick={handleAddPlaceClick}
+        onEditAvatarClick={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
       <ImagePopup
         card={selectedCard}
         isOpen={isImagePopupOpen}
-        onClose={CloseAllPopups}
+        onClose={closeAllPopups}
       ></ImagePopup>
 
       <PopupWithForm
         name="edit"
         title="Edit profile"
+        buttonText="Save"
         isOpen={isEditProfilePopupOpen}
-        onClose={CloseAllPopups}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input"
@@ -86,16 +87,14 @@ export default function App() {
           maxLength="200"
         />
         <span className="popup__error popup__error_type_job-input"></span>
-        <button type="submit" className="popup__submit">
-          Save
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         name="add"
         title="New Place"
+        buttonText="Save"
         isOpen={isAddPlacePopupOpen}
-        onClose={CloseAllPopups}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input"
@@ -117,27 +116,22 @@ export default function App() {
           required
         />
         <span className="popup__error popup__error_type_url-input-add"></span>
-        <button type="submit" className="popup__submit">
-          Save
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         name="confirm"
         title="Are you sure?"
+        buttonText="Yes"
         isOpen={false}
-        onClose={CloseAllPopups}
-      >
-        <button type="submit" className="popup__submit">
-          Yes
-        </button>
-      </PopupWithForm>
+        onClose={closeAllPopups}
+      ></PopupWithForm>
 
       <PopupWithForm
         name="profile-picture"
         title="Update profile picture"
+        buttonText="Save"
         isOpen={isEditAvatarPopupOpen}
-        onClose={CloseAllPopups}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input"
@@ -148,12 +142,7 @@ export default function App() {
           required
         />
         <span className="popup__error popup__error_type_url-input-profile"></span>
-        <button type="submit" className="popup__submit">
-          Save
-        </button>
       </PopupWithForm>
-
-      <script src="./index.js" type="text/html"></script>
     </div>
   );
 }

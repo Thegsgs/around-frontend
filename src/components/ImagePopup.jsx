@@ -1,11 +1,6 @@
 import addPath from "../images/add-icon.svg";
-import { useEffect } from "react";
 
 export default function ImagePopup(props) {
-  useEffect(() => {
-    document.addEventListener("keydown", props.onClose);
-  }, []);
-
   return (
     <div
       className={`popup image-popup ${props.isOpen ? "popup_opened" : ""}`}

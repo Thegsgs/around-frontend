@@ -12,7 +12,6 @@ export default function Main(props) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    let isSubscribed = true;
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardsData]) => {
         setUserName(userData.name);
@@ -21,8 +20,6 @@ export default function Main(props) {
         setCards(cardsData);
       })
       .catch((error) => console.log(`Error, ${error}`));
-
-    return () => (isSubscribed = false);
   }, []);
 
   return (

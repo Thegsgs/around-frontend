@@ -10,12 +10,17 @@ export default function Card(props) {
     <article className="element">
       <div className="element__image-container">
         <button className="element__button-delete">
-          <img className="element__delete-icon" src={trashPath} />
+          <img
+            className="element__delete-icon"
+            src={trashPath}
+            alt={props.card.name}
+          />
         </button>
         <img
           className="element__image"
           src={props.card.link}
           onClick={handleClick}
+          alt={props.card.name}
         />
       </div>
       <div className="element__text-container">

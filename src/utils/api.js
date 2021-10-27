@@ -20,15 +20,10 @@ class Api {
       .then((res) => this._handleResponse(res))
       .then((res) => {
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
-  uploadCard(title, link, submitButton) {
-    submitButton.innerText = "Saving...";
-
+  uploadCard(title, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -39,31 +34,20 @@ class Api {
     })
       .then((res) => this._handleResponse(res))
       .then((cardObject) => {
-        submitButton.innerText = "Save";
         return cardObject;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
-  uploadProfileImg(link, submitButton) {
-    submitButton.innerText = "Saving...";
-
+  uploadProfileImg(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then((res) => {
-        submitButton.innerText = "Save";
-        return res.json();
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
-      });
+    }).then((res) => {
+      return res.json();
+    });
   }
 
   getUserInfo() {
@@ -73,25 +57,16 @@ class Api {
       .then((res) => this._handleResponse(res))
       .then((res) => {
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
   getUserImg() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) => this._handleResponse(res))
-      .catch((error) => {
-        console.log(`Error, ${error}`);
-      });
+    }).then((res) => this._handleResponse(res));
   }
 
-  uploadUserInfo({ name, job }, submitButton) {
-    submitButton.innerText = "Saving...";
-
+  uploadUserInfo({ name, job }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -102,28 +77,18 @@ class Api {
     })
       .then((res) => this._handleResponse(res))
       .then((res) => {
-        submitButton.innerText = "Save";
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
-  deleteCard(cardId, deleteButton) {
-    deleteButton.innerText = "Deleting...";
-
+  deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     })
       .then((res) => this._handleResponse(res))
       .then((res) => {
-        deleteButton.innerText = "Yes";
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
@@ -135,9 +100,6 @@ class Api {
       .then((res) => this._handleResponse(res))
       .then((res) => {
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 
@@ -149,9 +111,6 @@ class Api {
       .then((res) => this._handleResponse(res))
       .then((res) => {
         return res;
-      })
-      .catch((error) => {
-        console.log(`Error, ${error}`);
       });
   }
 }
