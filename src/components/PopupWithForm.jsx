@@ -6,7 +6,6 @@ export default function PopupWithForm(props) {
       className={`popup popup_type_${props.name} ${
         props.isOpen ? "popup_opened" : ""
       }`}
-      onClick={props.onClose}
     >
       <div className="popup__container">
         <button type="button" className="popup__close" onClick={props.onClose}>
