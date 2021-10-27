@@ -1,0 +1,7 @@
+.header {
+  margin: 0 0 40px;
+  min-width: 320px;
+  max-width: 880px;
+  width: 68.75%;
+  border-bottom: solid rgba(84, 84, 84, 0.7) 1px;
+}

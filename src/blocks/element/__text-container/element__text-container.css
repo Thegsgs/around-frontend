@@ -1,0 +1,7 @@
+.element__text-container {
+  width: calc(240/282 * 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 11px 23px 21px;
+}
