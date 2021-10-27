@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import addPath from "../images/add-icon.svg";
 
-function PopupWithForm(props) {
+export default function PopupWithForm(props) {
+  useEffect(() => {
+    document.addEventListener("keydown", props.onClose);
+  }, []);
+
   return (
     <>
       <div
         className={`popup popup_type_${props.name} ${
           props.isOpen ? "popup_opened" : ""
         }`}
+        onClick={props.onClose}
       >
         <div className="popup__container">
           <button
@@ -30,5 +36,3 @@ function PopupWithForm(props) {
     </>
   );
 }
-
-export default PopupWithForm;
