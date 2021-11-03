@@ -22,7 +22,7 @@ export const validationObject = {
   popupError: ".popup__error",
   errorType: ".popup__error_type_",
 };
-const UntilPopupFades = 300;
+const POPUP_TRANSITION_DURATION = 300;
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -87,11 +87,11 @@ export default function App() {
           about: about,
           avatar: currentUser.avatar,
         });
+        closeAllPopups();
       })
       .catch((err) => console.log(`Error...: ${err}`))
       .finally(() => {
         setEditButtonText("Save");
-        closeAllPopups();
       });
   }
 
@@ -104,11 +104,11 @@ export default function App() {
           about: currentUser.about,
           avatar: newAvatar,
         });
+        closeAllPopups();
       })
       .catch((err) => console.log(`Error...: ${err}`))
       .finally(() => {
         setAvatarButtonText("Save");
-        closeAllPopups();
       });
   }
 
@@ -125,7 +125,6 @@ export default function App() {
       .catch((err) => console.log(`Error...: ${err}`))
       .finally(() => {
         setConfrimButtonText("Save");
-        closeAllPopups();
       });
   }
 
@@ -134,11 +133,11 @@ export default function App() {
     Api.uploadCard(title, link)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => console.log(`Error...: ${err}`))
       .finally(() => {
         setAddButtonText("Save");
-        closeAllPopups();
       });
   }
 
@@ -172,7 +171,7 @@ export default function App() {
     setIsConfirmDeletePopupOpen(false);
     setTimeout(function () {
       setSelectedCard({});
-    }, UntilPopupFades);
+    }, POPUP_TRANSITION_DURATION);
   }
 
   return (
