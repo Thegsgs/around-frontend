@@ -41,10 +41,14 @@ export default function App() {
   const [confirmButtonText, setConfrimButtonText] = useState("Yes");
 
   useEffect(() => {
-    Api.getUserInfo().then((userInfo) => {
-      setCurrentUser(userInfo);
-    });
-    Api.getInitialCards().then((cardData) => setCards(cardData));
+    Api.getUserInfo()
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      })
+      .catch((err) => console.log(`Error...: ${err}`));
+    Api.getInitialCards()
+      .then((cardData) => setCards(cardData))
+      .catch((err) => console.log(`Error...: ${err}`));
 
     const formList = document.querySelectorAll(validationObject.formSelector);
     formList.forEach((formElement) => {
