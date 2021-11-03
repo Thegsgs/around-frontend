@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../index.css";
-import Header from "./Header.jsx";
-import Footer from "./Footer.jsx";
-import Main from "./Main.jsx";
-import ImagePopup from "./ImagePopup.jsx";
+import Header from "./Header.js";
+import Footer from "./Footer.js";
+import Main from "./Main.js";
+import ImagePopup from "./ImagePopup.js";
 import FormValidator from "../utils/FormValidator.js";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";

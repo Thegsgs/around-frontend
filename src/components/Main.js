@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import addPath from "../images/add-icon.svg";
 import editPath from "../images/edit-icon.svg";
-import Card from "./Card.jsx";
+import Card from "./Card.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 export default function Main(props) {
