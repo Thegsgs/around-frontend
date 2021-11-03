@@ -8,7 +8,7 @@ import FormValidator from "../utils/FormValidator.js";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Api from "../utils/Api.js";
+import Api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
