@@ -1,10 +1,7 @@
-import { useContext, useState, useEffect, useRef } from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export default function EditAvatarPopup(props) {
-  const currentUser = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
   const avatarRef = useRef();
 
   function handleSubmit(evt) {
@@ -12,10 +9,6 @@ export default function EditAvatarPopup(props) {
     props.onUpdateAvatar(avatarRef.current.value);
     avatarRef.current.value = "";
   }
-
-  useEffect(() => {
-    setAvatar(avatar);
-  }, [currentUser]);
 
   return (
     <PopupWithForm
@@ -35,7 +28,7 @@ export default function EditAvatarPopup(props) {
         required
         ref={avatarRef}
       />
-      <span className="popup__error popup__error_type_url-input-profile"></span>
+      <span className="popup__error popup__error_type_url-input-profile" />
     </PopupWithForm>
   );
 }

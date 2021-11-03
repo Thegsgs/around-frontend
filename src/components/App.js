@@ -22,6 +22,7 @@ export const validationObject = {
   popupError: ".popup__error",
   errorType: ".popup__error_type_",
 };
+const UntilPopupFades = 300;
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function App() {
     useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [deleteCard, setDeleteCard] = useState({});
+  const [cardToDelete, setCardToDelete] = useState({});
   const [editButtonText, setEditButtonText] = useState("Save");
   const [addButtonText, setAddButtonText] = useState("Save");
   const [avatarButtonText, setAvatarButtonText] = useState("Save");
@@ -71,45 +72,66 @@ export default function App() {
 
   function handleUpdateUser({ name, about }) {
     setEditButtonText("Saving...");
-    Api.uploadUserInfo({ name: name, job: about }).then(() => {
-      setEditButtonText("Save");
-      closeAllPopups();
-      setCurrentUser({ name: name, about: about, avatar: currentUser.avatar });
-    });
+    Api.uploadUserInfo({ name: name, job: about })
+      .then(() => {
+        setCurrentUser({
+          name: name,
+          about: about,
+          avatar: currentUser.avatar,
+        });
+      })
+      .catch((err) => console.log(`Error...: ${err}`))
+      .finally(() => {
+        setEditButtonText("Save");
+        closeAllPopups();
+      });
   }
 
   function handleUpdateAvatar(newAvatar) {
     setAvatarButtonText("Saving...");
-    Api.uploadProfileImg(newAvatar).then(() => {
-      setAvatarButtonText("Save");
-      setCurrentUser({
-        name: currentUser.name,
-        about: currentUser.about,
-        avatar: newAvatar,
+    Api.uploadProfileImg(newAvatar)
+      .then(() => {
+        setCurrentUser({
+          name: currentUser.name,
+          about: currentUser.about,
+          avatar: newAvatar,
+        });
+      })
+      .catch((err) => console.log(`Error...: ${err}`))
+      .finally(() => {
+        setAvatarButtonText("Save");
+        closeAllPopups();
       });
-      closeAllPopups();
-    });
   }
 
   function handleCardDelete() {
     setConfrimButtonText("Deleting...");
-    Api.deleteCard(deleteCard._id).then(() => {
-      setConfrimButtonText("Yes");
-      setCards(
-        cards.filter((currentCard) => currentCard._id !== deleteCard._id)
-      );
-      setDeleteCard({});
-      closeAllPopups();
-    });
+    Api.deleteCard(cardToDelete._id)
+      .then(() => {
+        setCards(
+          cards.filter((currentCard) => currentCard._id !== cardToDelete._id)
+        );
+        setCardToDelete({});
+        closeAllPopups();
+      })
+      .catch((err) => console.log(`Error...: ${err}`))
+      .finally(() => {
+        setConfrimButtonText("Save");
+        closeAllPopups();
+      });
   }
 
   function handleAddPlaceSubmit(title, link) {
     setAddButtonText("Saving...");
-    Api.uploadCard(title, link).then((newCard) => {
-      setAddButtonText("Save");
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    });
+    Api.uploadCard(title, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => console.log(`Error...: ${err}`))
+      .finally(() => {
+        setAddButtonText("Save");
+        closeAllPopups();
+      });
   }
 
   function handleEditProfileClick() {
@@ -131,7 +153,7 @@ export default function App() {
 
   function handleDeleteClick(card) {
     setIsConfirmDeletePopupOpen(true);
-    setDeleteCard(card);
+    setCardToDelete(card);
   }
 
   function closeAllPopups() {
@@ -142,7 +164,7 @@ export default function App() {
     setIsConfirmDeletePopupOpen(false);
     setTimeout(function () {
       setSelectedCard({});
-    }, 300);
+    }, UntilPopupFades);
   }
 
   return (

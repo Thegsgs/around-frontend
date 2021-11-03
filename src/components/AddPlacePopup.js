@@ -38,7 +38,7 @@ export default function AddPlacePopup(props) {
         maxLength="30"
         onChange={handleTitleChange}
       />
-      <span className="popup__error popup__error_type_title-input"></span>
+      <span className="popup__error popup__error_type_title-input" />
       <input
         className="popup__input"
         id="url-input-add"
@@ -48,7 +48,7 @@ export default function AddPlacePopup(props) {
         required
         onChange={handleLinkChange}
       />
-      <span className="popup__error popup__error_type_url-input-add"></span>
+      <span className="popup__error popup__error_type_url-input-add" />
     </PopupWithForm>
   );
 }

@@ -1,9 +1,7 @@
-// Api class
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._currentUser = this.getUserInfo();
   }
 
   _handleResponse(res) {
