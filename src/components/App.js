@@ -8,7 +8,7 @@ import FormValidator from "../utils/FormValidator.js";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { api } from "../utils/api.js";
+import Api from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
@@ -40,10 +40,10 @@ export default function App() {
   const [confirmButtonText, setConfrimButtonText] = useState("Yes");
 
   useEffect(() => {
-    api.getUserInfo().then((userInfo) => {
+    Api.getUserInfo().then((userInfo) => {
       setCurrentUser(userInfo);
     });
-    api.getInitialCards().then((cardData) => setCards(cardData));
+    Api.getInitialCards().then((cardData) => setCards(cardData));
 
     const formList = document.querySelectorAll(validationObject.formSelector);
     formList.forEach((formElement) => {
@@ -55,13 +55,13 @@ export default function App() {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
     if (!isLiked) {
-      api.addLike(card._id).then((newCard) => {
+      Api.addLike(card._id).then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       });
     } else {
-      api.removeLike(card._id).then((newCard) => {
+      Api.removeLike(card._id).then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -71,7 +71,7 @@ export default function App() {
 
   function handleUpdateUser({ name, about }) {
     setEditButtonText("Saving...");
-    api.uploadUserInfo({ name: name, job: about }).then(() => {
+    Api.uploadUserInfo({ name: name, job: about }).then(() => {
       setEditButtonText("Save");
       closeAllPopups();
       setCurrentUser({ name: name, about: about, avatar: currentUser.avatar });
@@ -80,7 +80,7 @@ export default function App() {
 
   function handleUpdateAvatar(newAvatar) {
     setAvatarButtonText("Saving...");
-    api.uploadProfileImg(newAvatar).then(() => {
+    Api.uploadProfileImg(newAvatar).then(() => {
       setAvatarButtonText("Save");
       setCurrentUser({
         name: currentUser.name,
@@ -93,7 +93,7 @@ export default function App() {
 
   function handleCardDelete() {
     setConfrimButtonText("Deleting...");
-    api.deleteCard(deleteCard._id).then(() => {
+    Api.deleteCard(deleteCard._id).then(() => {
       setConfrimButtonText("Yes");
       setCards(
         cards.filter((currentCard) => currentCard._id !== deleteCard._id)
@@ -105,7 +105,7 @@ export default function App() {
 
   function handleAddPlaceSubmit(title, link) {
     setAddButtonText("Saving...");
-    api.uploadCard(title, link).then((newCard) => {
+    Api.uploadCard(title, link).then((newCard) => {
       setAddButtonText("Save");
       setCards([newCard, ...cards]);
       closeAllPopups();
