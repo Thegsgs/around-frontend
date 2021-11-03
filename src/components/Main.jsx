@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { api } from "../utils/api.js";
+import React, { useContext } from "react";
 import addPath from "../images/add-icon.svg";
 import editPath from "../images/edit-icon.svg";
-import avatarPath from "../images/jacques.jpg";
 import Card from "./Card.jsx";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 export default function Main(props) {
-  const [userName, setUserName] = useState("Simon");
-  const [userDescription, setUserDescription] = useState("Developer");
-  const [userAvatar, setUserAvatar] = useState(`${avatarPath}`);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, cardsData]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-        setCards(cardsData);
-      })
-      .catch((error) => console.log(`Error, ${error}`));
-  }, []);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -28,8 +13,8 @@ export default function Main(props) {
         <div className="profile__img-container">
           <img
             className="profile__avatar"
-            src={userAvatar}
-            alt="Profile picture"
+            src={currentUser.avatar}
+            alt="Profile"
           />
           <div
             className="profile__avatar-overlay"
@@ -37,7 +22,7 @@ export default function Main(props) {
           ></div>
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button
             type="button"
             className="profile__button-edit"
@@ -49,7 +34,7 @@ export default function Main(props) {
               alt="edit icon"
             />
           </button>
-          <p className="profile__job">{userDescription}</p>
+          <p className="profile__job">{currentUser.about}</p>
         </div>
         <button
           type="button"
@@ -60,11 +45,13 @@ export default function Main(props) {
         </button>
       </section>
       <section className="elements">
-        {cards.map((card) => (
+        {props.cards.map((card) => (
           <Card
             key={card._id}
             card={card}
             onCardClick={props.onCardClick}
+            onLikeClick={props.onCardLike}
+            onCardDelete={props.onCardDelete}
           ></Card>
         ))}
       </section>
